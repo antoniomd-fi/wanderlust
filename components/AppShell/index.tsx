@@ -1,5 +1,5 @@
 import { ActionIcon, AppShell, Group, Title } from '@mantine/core';
-import { IconBrandGithub, IconCompass } from '@tabler/icons-react';
+import { IconBrandGithub, IconChefHat } from '@tabler/icons-react';
 import Link from 'next/link';
 import ColorSchemeToggle from '../ColorSchemeToggle/ColorSchemeToggle';
 
@@ -10,12 +10,12 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         <Group h="100%" px="md">
           <Group justify="space-between" style={{ flex: 1 }}>
             <Group wrap="nowrap" style={{ cursor: 'pointer' }}>
-              <IconCompass size={32} />
-              <Title order={2}>Wanderlust</Title>
+              <IconChefHat size={32} />
+              <Title order={2}>Chef GPT</Title>
             </Group>
             <Group ml="xl" gap="lg">
               <Link
-                href="https://github.com/ACHultman/Wanderlust"
+                href="https://github.com/antoniomd-fi/Wanderlust"
                 rel="no-referrer noopener"
                 target="_blank"
               >

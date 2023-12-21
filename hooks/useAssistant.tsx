@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import useSWR from 'swr';
 import { useThread } from './useThread';
 import { useMap } from '@/context/Map';
+import useUnsplashImage from './useUnsplash';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -10,6 +11,7 @@ const useAssistant = () => {
   const [isRunning, setIsRunning] = useState(false);
   const { setCenter, addMarkers } = useMap();
   const { threadID, resetThread } = useThread();
+  const [foodName, setFoodName] = useState<string>('');
   const { data: messages, mutate } = useSWR<Message[]>(
     threadID ? `/api/openai/get-responses?threadID=${threadID}` : null,
     fetcher,
@@ -78,6 +80,14 @@ const useAssistant = () => {
         if (runRes.status === 'requires_action') {
           // get the arguments from the tool calls
           const toolCalls = runRes.required_action.submit_tool_outputs.tool_calls;
+
+          // get food's name
+          const foodNameToolCalls = toolCalls.filter((tc: any) => tc.function.name === 'get_food_name');
+          foodNameToolCalls.map((tc: any) => {
+            const { food_name } = JSON.parse(tc.function.arguments);
+            setFoodName(food_name);
+          });
+
           // update the map center
           const updateMapToolCall = toolCalls.find((tc: any) => tc.function.name === 'update_map');
           if (updateMapToolCall) {
@@ -93,7 +103,7 @@ const useAssistant = () => {
           });
 
           addMarkers(markers);
-
+          
           await fetch('/api/openai/submit-tool-output', {
             method: 'POST',
             headers: {
@@ -121,7 +131,7 @@ const useAssistant = () => {
     [threadID, isRunning, mutate]
   );
 
-  return { messages, sendMessageAndRun, isRunning, resetThread };
+  return { messages, sendMessageAndRun, isRunning, resetThread, foodName};
 };
 
 export default useAssistant;

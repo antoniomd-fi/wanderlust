@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 const initAssistantMessage: Message = {
   id: 'init',
   role: 'assistant',
-  content: [{ type: 'text', text: { value: 'Where would you like to go?' } }],
+  content: [{ type: 'text', text: { value: 'What we will cook today?' } }],
 };
 
 const openai = new OpenAI();
