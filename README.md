@@ -1,3 +1,8 @@
+# Custom Demo
+
+https://github.com/antoniomd-fi/wanderlust/assets/90221784/0020bbfd-7e82-46e1-8ccb-b2a49864b951
+
+
 # Mantine Next.js template
 
 This is a template for [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/).
